@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="text-center my-5">
+    <i class="fas fa-check-circle text-success" style="font-size: 5rem;"></i>
+    <h1 class="mt-4">Payment Successful!</h1>
+    <p class="lead">Thank you for your order.</p>
+    
+    <div class="card mx-auto" style="max-width: 500px;">
+        <div class="card-body">
+            <h5>Order #{{ order.id }}</h5>
+            <p><strong>Total:</strong> ${{ order.total_amount }}</p>
+            <p><strong>Status:</strong> {{ order.get_status_display }}</p>
+            <p class="text-muted">You will receive an email confirmation shortly.</p>
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <a href="{% url 'orders:detail' order.id %}" class="btn btn-primary">View Order Details</a>
+        <a href="{% url 'products:home' %}" class="btn btn-secondary">Continue Shopping</a>
+    </div>
+</div>
+{% endblock %}

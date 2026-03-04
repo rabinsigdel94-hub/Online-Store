@@ -1,0 +1,94 @@
+========================================
+HOW TO PUSH CODE TO GITHUB
+========================================
+
+STEP 1: INSTALL GIT
+-------------------
+1. Download Git from: https://git-scm.com/download/win
+2. Run the installer
+3. Use default settings (just keep clicking Next)
+4. Restart your Command Prompt/PowerShell after installation
+
+STEP 2: VERIFY GIT IS INSTALLED
+--------------------------------
+Open Command Prompt and type:
+    git --version
+
+You should see something like: git version 2.x.x
+
+STEP 3: CONFIGURE GIT (First Time Only)
+----------------------------------------
+Open Command Prompt and run these commands:
+
+    git config --global user.name "Your Name"
+    git config --global user.email "your.email@example.com"
+
+Replace with your actual name and email.
+
+STEP 4: PUSH TO GITHUB
+-----------------------
+Open Command Prompt in your project folder and run:
+
+    git init
+    git add .
+    git commit -m "Initial commit: Django E-Commerce Platform"
+    git remote add origin https://github.com/rabinsigdel94-hub/Online-Store.git
+    git branch -M main
+    git push -u origin main
+
+STEP 5: ENTER CREDENTIALS
+--------------------------
+When prompted:
+- Username: rabinsigdel94-hub
+- Password: Use a Personal Access Token (NOT your GitHub password)
+
+HOW TO CREATE PERSONAL ACCESS TOKEN:
+1. Go to: https://github.com/settings/tokens
+2. Click "Generate new token" → "Generate new token (classic)"
+3. Give it a name: "Online Store Project"
+4. Select scope: Check "repo" (full control of private repositories)
+5. Click "Generate token"
+6. COPY THE TOKEN IMMEDIATELY (you won't see it again!)
+7. Use this token as your password when pushing
+
+ALTERNATIVE: USE GITHUB DESKTOP
+--------------------------------
+If command line is difficult:
+1. Download GitHub Desktop: https://desktop.github.com/
+2. Install and login
+3. Click "Add" → "Add existing repository"
+4. Select your project folder
+5. Click "Publish repository"
+6. Choose "rabinsigdel94-hub/Online-Store" as the name
+7. Click "Publish"
+
+TROUBLESHOOTING
+---------------
+Error: "git is not recognized"
+→ Install Git and restart Command Prompt
+
+Error: "Permission denied"
+→ Use Personal Access Token instead of password
+
+Error: "Repository not found"
+→ Make sure the repository exists on GitHub
+→ Check the URL is correct
+
+Error: "Failed to push"
+→ Try: git push -u origin main --force
+→ (WARNING: This overwrites remote repository)
+
+FUTURE UPDATES
+--------------
+After making changes to your code:
+
+    git add .
+    git commit -m "Description of what you changed"
+    git push
+
+That's it! Your code will be updated on GitHub.
+
+========================================
+NEED HELP?
+Check GITHUB_SETUP.md for detailed instructions
+========================================

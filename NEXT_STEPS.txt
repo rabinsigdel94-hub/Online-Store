@@ -1,0 +1,57 @@
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║                    WHAT TO DO NEXT                             ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+
+Git is installed! Here's what to do now:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1: RESTART YOUR TERMINAL
+------------------------------
+Close this window and open a NEW Command Prompt or PowerShell
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 2: NAVIGATE BACK TO PROJECT
+---------------------------------
+cd "C:\Users\RabinS\Desktop\8th sem"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 3: RUN THE PUSH SCRIPT
+----------------------------
+push_now.bat
+
+OR just double-click push_now.bat in File Explorer
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 4: ENTER CREDENTIALS
+--------------------------
+When prompted:
+
+Username: rabinsigdel94-hub
+Password: [Your Personal Access Token]
+
+⚠️ Get token from: https://github.com/settings/tokens
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+THAT'S IT!
+----------
+Your code will be pushed to:
+https://github.com/rabinsigdel94-hub/Online-Store
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+QUICK REFERENCE:
+
+Files to help you:
+✅ push_now.bat           - Automated push script
+✅ PUSH_INSTRUCTIONS.txt  - Detailed instructions
+✅ GITHUB_SETUP.md        - Complete guide
+✅ GITHUB_CHECKLIST.md    - Step-by-step checklist
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

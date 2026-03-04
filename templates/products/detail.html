@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="product-img-placeholder" style="height: 400px; border-radius: 8px;">
+            {% if 'Headphones' in product.name %}
+                <i class="fas fa-headphones"></i>
+            {% elif 'Watch' in product.name %}
+                <i class="fas fa-clock"></i>
+            {% elif 'Laptop' in product.name or 'Stand' in product.name %}
+                <i class="fas fa-laptop"></i>
+            {% elif 'Shirt' in product.name or 'T-Shirt' in product.name %}
+                <i class="fas fa-tshirt"></i>
+            {% elif 'Jeans' in product.name %}
+                <i class="fas fa-user"></i>
+            {% elif 'Book' in product.name %}
+                <i class="fas fa-book"></i>
+            {% elif 'Coffee' in product.name %}
+                <i class="fas fa-coffee"></i>
+            {% elif 'Yoga' in product.name or 'Mat' in product.name %}
+                <i class="fas fa-dumbbell"></i>
+            {% else %}
+                <i class="fas fa-box"></i>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h1 class="mb-3">{{ product.name }}</h1>
+        <div class="mb-3">
+            <i class="fas fa-star text-warning"></i>
+            <i class="fas fa-star text-warning"></i>
+            <i class="fas fa-star text-warning"></i>
+            <i class="fas fa-star text-warning"></i>
+            <i class="far fa-star text-warning"></i>
+            <span class="text-muted ms-2">({{ reviews.count }} reviews)</span>
+        </div>
+        <p class="price mb-3">${{ product.get_price }}</p>
+        <div class="bg-light p-3 rounded mb-3">
+            <p class="mb-2"><strong>Description:</strong></p>
+            <p>{{ product.description }}</p>
+        </div>
+        <p class="mb-3">
+            {% if product.stock > 0 %}
+                <span class="badge bg-success">In Stock</span>
+                <span class="text-muted ms-2">{{ product.stock }} available</span>
+            {% else %}
+                <span class="badge bg-danger">Out of Stock</span>
+            {% endif %}
+        </p>
+        
+        {% if product.stock > 0 %}
+        <form action="{% url 'cart:add' product.id %}" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label fw-bold">Quantity:</label>
+                <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" class="form-control" style="width: 100px;">
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg px-5">
+                <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+            </button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+
+<hr class="my-5">
+
+<h3>Customer Reviews</h3>
+{% if avg_rating %}
+<p>Average Rating: {{ avg_rating|floatformat:1 }} / 5</p>
+{% endif %}
+
+{% if user.is_authenticated %}
+<a href="{% url 'reviews:add' product.id %}" class="btn btn-secondary mb-3">Write a Review</a>
+{% endif %}
+
+{% for review in reviews %}
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">{{ review.title }}</h5>
+        <p class="card-text">Rating: {{ review.rating }}/5</p>
+        <p class="card-text">{{ review.comment }}</p>
+        <p class="text-muted">By {{ review.user.username }} on {{ review.created_at|date:"M d, Y" }}</p>
+    </div>
+</div>
+{% empty %}
+<p>No reviews yet.</p>
+{% endfor %}
+{% endblock %}

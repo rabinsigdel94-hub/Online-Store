@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="mb-4">Products</h1>
+
+<div class="row">
+    <div class="col-md-3">
+        <h5>Categories</h5>
+        <ul class="list-group mb-3">
+            {% for category in categories %}
+            <li class="list-group-item">
+                <a href="?category={{ category.slug }}">{{ category.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        
+        <h5>Sort By</h5>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="?sort=name">Name</a></li>
+            <li class="list-group-item"><a href="?sort=price_low">Price: Low to High</a></li>
+            <li class="list-group-item"><a href="?sort=price_high">Price: High to Low</a></li>
+        </ul>
+    </div>
+    
+    <div class="col-md-9">
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="product-img-placeholder card-img-top">
+                        {% if 'Headphones' in product.name %}
+                            <i class="fas fa-headphones"></i>
+                        {% elif 'Watch' in product.name %}
+                            <i class="fas fa-clock"></i>
+                        {% elif 'Laptop' in product.name or 'Stand' in product.name %}
+                            <i class="fas fa-laptop"></i>
+                        {% elif 'Shirt' in product.name or 'T-Shirt' in product.name %}
+                            <i class="fas fa-tshirt"></i>
+                        {% elif 'Jeans' in product.name %}
+                            <i class="fas fa-user"></i>
+                        {% elif 'Book' in product.name %}
+                            <i class="fas fa-book"></i>
+                        {% elif 'Coffee' in product.name %}
+                            <i class="fas fa-coffee"></i>
+                        {% elif 'Yoga' in product.name or 'Mat' in product.name %}
+                            <i class="fas fa-dumbbell"></i>
+                        {% else %}
+                            <i class="fas fa-box"></i>
+                        {% endif %}
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h6 class="card-title">{{ product.name }}</h6>
+                        <p class="price mb-2">${{ product.get_price }}</p>
+                        <div class="text-muted small mb-2">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="far fa-star text-warning"></i>
+                        </div>
+                        <a href="{{ product.get_absolute_url }}" class="btn btn-primary btn-sm mt-auto">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">No products found.</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
