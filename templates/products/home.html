@@ -27,10 +27,19 @@
     </div>
 </div>
 
-<div class="jumbotron p-5 rounded mb-4">
-    <h1 class="display-3 fw-bold">Welcome to E-Store</h1>
-    <p class="lead fs-4">Find amazing products at great prices</p>
-    <a class="btn btn-primary btn-lg px-5 py-3 mt-3" href="{% url 'products:list' %}">Shop Now</a>
+<div class="jumbotron p-5 rounded mb-4" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200') center/cover; position: relative; overflow: hidden;">
+    <div style="position: relative; z-index: 2;">
+        <h1 class="display-3 fw-bold text-white">Welcome to E-Store</h1>
+        <p class="lead fs-4 text-white">Find amazing products at great prices</p>
+        <a class="btn btn-primary btn-lg px-5 py-3 mt-3" href="{% url 'products:list' %}" style="background: #ff9900; border: none; box-shadow: 0 4px 15px rgba(255,153,0,0.4);">Shop Now</a>
+    </div>
+    <!-- Decorative Elements -->
+    <div style="position: absolute; top: 20px; right: 20px; font-size: 4rem; opacity: 0.2;">
+        <i class="fas fa-shopping-bag"></i>
+    </div>
+    <div style="position: absolute; bottom: 20px; left: 20px; font-size: 3rem; opacity: 0.2;">
+        <i class="fas fa-tags"></i>
+    </div>
 </div>
 
 <h2 class="mb-4 fw-bold">Featured Categories</h2>
