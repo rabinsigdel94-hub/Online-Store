@@ -1,53 +1,96 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-<h1 class="mb-4">Checkout</h1>
+<div class="bg-white p-4 rounded shadow-sm">
+    <h1 class="mb-4 fw-bold"><i class="fas fa-shopping-bag me-2"></i>Checkout</h1>
 
-<div class="row">
-    <div class="col-md-8">
-        <h3>Order Summary</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in cart %}
-                <tr>
-                    <td>{{ item.product.name }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>${{ item.total_price }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="2"><strong>Total</strong></td>
-                    <td><strong>${{ cart.get_total_price }}</strong></td>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-    
-    <div class="col-md-4">
-        <h3>Shipping Address</h3>
-        <form method="post">
-            {% csrf_token %}
-            <div class="mb-3">
-                <label>Select Address:</label>
-                <select name="address" class="form-select" required>
-                    {% for address in addresses %}
-                    <option value="{{ address.id }}">
-                        {{ address.full_name }} - {{ address.address_line1 }}, {{ address.city }}
-                    </option>
-                    {% endfor %}
-                </select>
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="mb-3">Order Summary</h3>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart %}
+                        <tr>
+                            <td>{{ item.product.name }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td class="text-success fw-bold">${{ item.total_price }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot class="table-light">
+                        <tr>
+                            <td colspan="2"><strong>Total</strong></td>
+                            <td><strong class="text-success fs-5">${{ cart.get_total_price }}</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Continue to Payment</button>
-        </form>
+        </div>
+        
+        <div class="col-md-4">
+            <h3 class="mb-3">Shipping Address</h3>
+            
+            {% if addresses %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Select Delivery Address:</label>
+                    {% for address in addresses %}
+                    <div class="form-check mb-2 p-3 border rounded {% if address.is_default %}border-primary{% endif %}">
+                        <input class="form-check-input" type="radio" name="address" value="{{ address.id }}" id="addr{{ address.id }}" {% if address.is_default %}checked{% endif %} required>
+                        <label class="form-check-label" for="addr{{ address.id }}">
+                            <strong>{{ address.full_name }}</strong>
+                            {% if address.is_default %}<span class="badge bg-primary ms-2">Default</span>{% endif %}
+                            <br>
+                            <small class="text-muted">
+                                {{ address.address_line1 }}<br>
+                                {% if address.address_line2 %}{{ address.address_line2 }}<br>{% endif %}
+                                {{ address.city }}, {{ address.state }} {{ address.postal_code }}<br>
+                                {{ address.phone }}
+                            </small>
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-100 btn-lg mb-3">
+                    <i class="fas fa-arrow-right me-2"></i>Continue to Payment
+                </button>
+            </form>
+            
+            <hr>
+            <p class="text-center mb-2"><strong>Or Add New Address</strong></p>
+            {% endif %}
+            
+            <!-- Add New Address Form -->
+            <div class="card {% if not addresses %}border-primary{% endif %}">
+                <div class="card-body">
+                    {% if not addresses %}
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Please add a delivery address to continue
+                    </div>
+                    {% endif %}
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ address_form|crispy }}
+                        <button type="submit" name="add_new_address" class="btn btn-success w-100">
+                            <i class="fas fa-plus me-2"></i>Add Address
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -4,6 +4,7 @@ from django.contrib import messages
 from .models import Order, OrderItem
 from cart.cart import Cart
 from accounts.models import Address
+from accounts.forms import AddressForm
 
 @login_required
 def order_create(request):
@@ -13,28 +14,50 @@ def order_create(request):
         return redirect('cart:detail')
     
     if request.method == 'POST':
-        address_id = request.POST.get('address')
-        address = get_object_or_404(Address, id=address_id, user=request.user)
-        
-        order = Order.objects.create(
-            user=request.user,
-            address=address,
-            total_amount=cart.get_total_price()
-        )
-        
-        for item in cart:
-            OrderItem.objects.create(
-                order=order,
-                product=item['product'],
-                price=item['price'],
-                quantity=item['quantity']
+        # Check if user wants to add new address
+        if 'add_new_address' in request.POST:
+            address_form = AddressForm(request.POST)
+            if address_form.is_valid():
+                address = address_form.save(commit=False)
+                address.user = request.user
+                address.save()
+                messages.success(request, 'Address added successfully!')
+                return redirect('orders:create')
+        else:
+            # Process order with selected address
+            address_id = request.POST.get('address')
+            if not address_id:
+                messages.error(request, 'Please select a delivery address')
+                return redirect('orders:create')
+            
+            address = get_object_or_404(Address, id=address_id, user=request.user)
+            
+            order = Order.objects.create(
+                user=request.user,
+                address=address,
+                total_amount=cart.get_total_price()
             )
-        
-        cart.clear()
-        return redirect('payments:process', order_id=order.id)
+            
+            for item in cart:
+                OrderItem.objects.create(
+                    order=order,
+                    product=item['product'],
+                    price=item['price'],
+                    quantity=item['quantity']
+                )
+            
+            cart.clear()
+            return redirect('payments:process', order_id=order.id)
     
     addresses = Address.objects.filter(user=request.user)
-    return render(request, 'orders/create.html', {'cart': cart, 'addresses': addresses})
+    address_form = AddressForm()
+    
+    context = {
+        'cart': cart,
+        'addresses': addresses,
+        'address_form': address_form
+    }
+    return render(request, 'orders/create.html', context)
 
 @login_required
 def order_detail(request, order_id):

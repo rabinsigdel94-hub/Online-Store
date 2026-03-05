@@ -44,3 +44,38 @@ def edit_profile(request):
     else:
         form = ProfileForm(instance=profile)
     return render(request, 'accounts/edit_profile.html', {'form': form})
+
+@login_required
+def add_address(request):
+    if request.method == 'POST':
+        form = AddressForm(request.POST)
+        if form.is_valid():
+            address = form.save(commit=False)
+            address.user = request.user
+            address.save()
+            messages.success(request, 'Address added successfully!')
+            return redirect('accounts:profile')
+    else:
+        form = AddressForm()
+    return render(request, 'accounts/address_form.html', {'form': form, 'title': 'Add Address'})
+
+@login_required
+def edit_address(request, address_id):
+    address = get_object_or_404(Address, id=address_id, user=request.user)
+    if request.method == 'POST':
+        form = AddressForm(request.POST, instance=address)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Address updated successfully!')
+            return redirect('accounts:profile')
+    else:
+        form = AddressForm(instance=address)
+    return render(request, 'accounts/address_form.html', {'form': form, 'title': 'Edit Address'})
+
+@login_required
+def delete_address(request, address_id):
+    address = get_object_or_404(Address, id=address_id, user=request.user)
+    if request.method == 'POST':
+        address.delete()
+        messages.success(request, 'Address deleted successfully!')
+    return redirect('accounts:profile')
