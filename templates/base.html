@@ -83,6 +83,98 @@
             color: white;
             font-size: 3rem;
         }
+        
+        /* Promotional Banner */
+        .promo-banner {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .promo-banner .carousel-item {
+            transition: transform 0.6s ease-in-out;
+        }
+        
+        .promo-banner .carousel-indicators button {
+            background-color: rgba(255,255,255,0.5);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+        
+        .promo-banner .carousel-indicators button.active {
+            background-color: white;
+        }
+        
+        .promo-banner .carousel-control-prev-icon,
+        .promo-banner .carousel-control-next-icon {
+            filter: brightness(0) invert(1);
+        }
+        
+        .promo-badge {
+            background: rgba(255,255,255,0.3);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        .promo-title {
+            font-size: 2rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin: 0;
+        }
+        
+        .promo-text {
+            font-size: 1rem;
+            opacity: 0.95;
+        }
+        
+        .promo-btn {
+            background: white;
+            color: #f5576c;
+            font-weight: bold;
+            border: none;
+            padding: 0.75rem 2rem;
+            transition: all 0.3s;
+        }
+        
+        .promo-btn:hover {
+            background: #fff;
+            color: #f5576c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .promo-title {
+                font-size: 1.5rem;
+            }
+            .promo-text {
+                font-size: 0.85rem;
+            }
+            .promo-banner .col-md-4 {
+                text-align: center !important;
+                margin-top: 1rem;
+            }
+        }
+        
         footer {
             margin-top: auto;
         }
