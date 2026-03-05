@@ -4,16 +4,22 @@
 <div class="row">
     <div class="col-md-6">
         <div class="product-img-placeholder" style="height: 400px; border-radius: 8px;">
-            {% if 'Headphones' in product.name %}
+            {% if 'Nike' in product.name or 'Adidas' in product.name or 'Puma' in product.name or 'Reebok' in product.name or 'Converse' in product.name or 'Vans' in product.name or 'Boots' in product.name or 'Shoes' in product.name or 'Heels' in product.name or 'Sandals' in product.name or 'Flats' in product.name or 'Clogs' in product.name %}
+                <i class="fas fa-shoe-prints"></i>
+            {% elif 'Headphones' in product.name %}
                 <i class="fas fa-headphones"></i>
             {% elif 'Watch' in product.name %}
                 <i class="fas fa-clock"></i>
             {% elif 'Laptop' in product.name or 'Stand' in product.name %}
                 <i class="fas fa-laptop"></i>
-            {% elif 'Shirt' in product.name or 'T-Shirt' in product.name %}
+            {% elif 'Shirt' in product.name or 'T-Shirt' in product.name or 'Hoodie' in product.name or 'Sweater' in product.name or 'Top' in product.name or 'Bra' in product.name or 'Polo' in product.name %}
                 <i class="fas fa-tshirt"></i>
-            {% elif 'Jeans' in product.name %}
+            {% elif 'Jacket' in product.name or 'Coat' in product.name %}
+                <i class="fas fa-vest"></i>
+            {% elif 'Jeans' in product.name or 'Pants' in product.name %}
                 <i class="fas fa-user"></i>
+            {% elif 'Dress' in product.name %}
+                <i class="fas fa-user-tie"></i>
             {% elif 'Book' in product.name %}
                 <i class="fas fa-book"></i>
             {% elif 'Coffee' in product.name %}
